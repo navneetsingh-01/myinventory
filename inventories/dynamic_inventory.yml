@@ -1,2 +1,2 @@
 plugin: ansible.builtin.script
-script: dynamic_inventory.py
+script: ../plugins/inventory/dynamic_inventory.py
