@@ -6,14 +6,6 @@ from ansible.errors import AnsibleError
 extra_vars = json.loads(os.getenv("ANSIBLE_EXTRA_VARS", "{}"))
 target_host = extra_vars.get("hosts", [])
 
-def generate_inventory(hosts):
-    return {
-        "all": {
-            "hosts": hosts
-        }
-    }
-
-
 class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
     NAME = "dynamic_inventory_webhook"
 
@@ -28,4 +20,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
     def parse(self, inventory, loader, path, cache=True):
         """Parse the inventory file and populate the inventory"""
         super(InventoryModule, self).parse(inventory, loader, path)
+
+        print(extra_vars)
+
         self.inventory.add_host(target_host)
