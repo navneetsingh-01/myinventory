@@ -3,18 +3,14 @@ import json
 
 extra_vars = json.loads(os.getenv("ANSIBLE_EXTRA_VARS", "{}"))
 target_hosts = extra_vars.get("hosts", [])
-environment = extra_vars.get("environment", "unknown")
 
-def generate_inventory(hosts, env):
+def generate_inventory(hosts):
     return {
         "all": {
-            "hosts": hosts,
-            "vars": {
-                "environment": env
-            }
+            "hosts": hosts
         }
     }
 
 if __name__ == "__main__":
-    inventory = generate_inventory(target_hosts, environment)
+    inventory = generate_inventory(target_hosts)
     print(json.dumps(inventory))
